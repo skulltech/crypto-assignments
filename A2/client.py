@@ -50,16 +50,3 @@ def decrypt(c, kd, pn, pk, sn, sk):
     key_string = decode(k)
     m = vignere_decrypt(c, key_string)
     return m, key_string
-
-
-def rsa_encrypt(plain, n1, key1, bsize):
-    residual = len(plain) % bsize
-    if residual:
-        plain = plain + 'X' * (bsize - residual)
-    cipher = ''
-    for i in range(len(plain) // bsize):
-        block = plain[i*bsize: (i+1)*bsize]
-        block_int = encode(block)
-        enc = gmpy2.powmod(block_int, key1, n1)
-        cipher = cipher + decode(int(enc))
-    return cipher
